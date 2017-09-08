@@ -34,14 +34,25 @@ table = dynamodb.Table('imglist')
 response = table.scan(
     FilterExpression=Attr('name').begins_with('images')
 )
-items = response['Items'][0]
-print(items)
+#items = response['Items'][0]
+#print(items)
 count = len(response['Items'])
 i = randint(0,count)
 print i
 item  =  response['Items'][i]
 print(item['name'])
 nstr =  item['name']
+narr = nstr.split('/')
+print(len(narr))
+if  len(narr)==3:
+    painter = narr[1]
+    pic = narr[2]
+
+painter = painter.replace('-',' ')
+pic = pic.replace('-',' ')
+print (painter)
+print (pic)
+
 response = table.get_item(
     Key={
         'name': nstr,
