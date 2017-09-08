@@ -16,8 +16,8 @@ boto3.client('iam').list_users()
 
 for bucket in s3.buckets.all():
         print(bucket.name)
-#        for object in  bucket.objects.all():
-#           print(object)
+        for object in  bucket.objects.all():
+           print(object['key'])
 #conn = S3Connection()
 #        for file_key in bucket:
 #            print file_key.name
