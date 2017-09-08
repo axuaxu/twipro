@@ -61,7 +61,7 @@ print(len(narr))
 if  len(narr)==3:
     painter = narr[1]
     pic = narr[2]
-
+    pic=  pic.split('.')[0]
     painter = painter.replace('-',' ')
     pic = pic.replace('-',' ')
     print (painter)
