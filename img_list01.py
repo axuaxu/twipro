@@ -5,6 +5,10 @@ from random import randint
 import os
 import tweepy
 from credentials import *
+import sys
+reload(sys)
+sys.setdefaultencoding('utf-8')
+
 
 auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
 auth.set_access_token(access_token, access_token_secret)
@@ -51,7 +55,7 @@ i = randint(0,count)
 print i
 item  =  response['Items'][i]
 print(item['name'])
-nstr =  item['name']
+nstr =  item['name'].encode('utf-8').replace('\n','')
 narr = nstr.split('/')
 print(len(narr))
 if  len(narr)==3:
@@ -63,28 +67,14 @@ if  len(narr)==3:
     print (painter)
     print (pic)
     status =  painter+'\n'+pic
+    status = status.title()
     myb = "axufile"
     tmpf = '/tmp/'+narr[2]
-    boto3.client('s3').download_file(myb,nstr)
+    print(myb,nstr,tmpf)
+    boto3.client('s3').download_file(myb,nstr,tmpf)
     file = open(tmpf,'rb')
     api.update_with_media(tmpf, status=status)
-
-
-response = table.get_item(
-    Key={
-        'name': nstr,
-    }
-)
-item = response['Item']
-print(item)
-
-table.delete_item(
-    Key={
-        'name': 'janedoe',
-    }table.delete_item(
-    Key={
-        'name': 'janedoe',
-    }
-)
-
-)
+    table.delete_item(
+         Key={
+           'name': item['name'],
+       })
