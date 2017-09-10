@@ -11,7 +11,7 @@ cloudwatch_events = boto3.client('events')
 response = cloudwatch_events.put_rule(
     Name='DEMO_EVENT',
     RoleArn='arn:aws:iam::969340917686:role/axevent1',
-    ScheduleExpression='rate(5 minutes)',
+    ScheduleExpression='rate(125 minutes)',
     State='ENABLED'
 )
 
@@ -20,11 +20,11 @@ response = cloudwatch_events.put_targets(
     Rule='DEMO_EVENT',
     Targets=[
         {
-            'Arn': 'LAMBDA_FUNCTION_ARN',
+            'Arn': 'arn:aws:lambda:us-east-1:969340917686:function:mylamb',
             'Id': 'myCloudWatchEventsTarget',
         }
     ]
 )
 print(response)
 
-print(response['RuleArn'])
+#print(response['RuleArn'])
