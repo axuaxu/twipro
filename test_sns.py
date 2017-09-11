@@ -2,18 +2,18 @@ import boto3
 from random import randint
 import datetime
 
-sns = boto3.client('sns')
-
-response = sns.publish(
-    TopicArn='arn:aws:sns:us-east-1:969340917686:test',
-    Message='aws test',
-    Subject='aws test topic'
-)
-
 now = datetime.datetime.now()
 hour = now.hour
 print (now)
 print (now.hour,now.minute)
+
+sns = boto3.client('sns')
+
+response = sns.publish(
+    TopicArn='arn:aws:sns:us-east-1:969340917686:test',
+    Message='aws test'+str(now),
+    Subject='aws test topic'+str(now)
+)
 
 tin = randint(3,6)
 if  (3<= now.hour <=9):
